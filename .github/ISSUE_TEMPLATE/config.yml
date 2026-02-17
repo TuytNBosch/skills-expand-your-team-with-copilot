@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Teacher's Guide - How to Request Changes
+    url: https://github.com/TuytNBosch/skills-expand-your-team-with-copilot/blob/main/docs/teacher-guide.md
+    about: Learn how to use issue templates to request changes without coding
   - name: Development Documentation
     url: https://github.com/TuytNBosch/skills-expand-your-team-with-copilot/blob/main/docs/how-to-develop.md
     about: Learn how to set up and work with the codebase
