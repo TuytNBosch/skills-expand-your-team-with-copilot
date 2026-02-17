@@ -620,12 +620,7 @@ footer {
 
 .category-filters,
 .day-filters,
-.time-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
+.time-filters,
 .difficulty-filters {
   display: flex;
   flex-wrap: wrap;
@@ -663,10 +658,7 @@ footer {
   color: white;
 }
 
-.time-filters {
-  width: 100%;
-}
-
+.time-filters,
 .difficulty-filters {
   width: 100%;
 }
