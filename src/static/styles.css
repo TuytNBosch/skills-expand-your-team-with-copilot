@@ -1,10 +1,10 @@
 /* Color palette */
 :root {
-  /* Primary colors */
-  --primary: #1a237e;
-  --primary-light: #534bae;
-  --primary-dark: #000051;
-  --primary-text: #ffffff;
+  /* Primary colors - School colors: white and lime green */
+  --primary: #32CD32;
+  --primary-light: #7FFF00;
+  --primary-dark: #228B22;
+  --primary-text: #333333;
 
   /* Secondary colors */
   --secondary: #ff6f00;
@@ -13,13 +13,13 @@
   --secondary-text: #ffffff;
 
   /* Neutral colors */
-  --background: #f5f5f5;
-  --surface: #ffffff;
+  --background: #ffffff;
+  --surface: #f9f9f9;
   --text-primary: #333333;
   --text-secondary: #666666;
   --border: #e0e0e0;
   --border-light: #f0f0f0;
-  --border-focus: #d0d0d0;
+  --border-focus: #32CD32;
 
   /* Feedback colors */
   --success: #2e7d32;
@@ -48,6 +48,8 @@ body {
   padding: 12px;
   background-color: var(--background);
   font-size: 0.9rem;
+  position: relative;
+  overflow-x: hidden;
 }
 
 header {
@@ -57,7 +59,7 @@ header {
   background-color: var(--primary);
   color: var(--primary-text);
   border-radius: 5px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 3px 6px rgba(50, 205, 50, 0.3);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -744,4 +746,82 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Mascots Section */
+.mascots-section {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: var(--surface);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mascots-section h3 {
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.mascots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.mascot-item {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.mascot-item:hover {
+  transform: scale(1.1);
+}
+
+.mascot-item img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mascot-item p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Animated background with Git-style branch lines */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(90deg, transparent 0%, transparent 48%, var(--primary) 48%, var(--primary) 52%, transparent 52%, transparent 100%),
+    linear-gradient(45deg, transparent 0%, transparent 48%, var(--primary-light) 48%, var(--primary-light) 52%, transparent 52%, transparent 100%),
+    linear-gradient(-45deg, transparent 0%, transparent 48%, var(--primary-light) 48%, var(--primary-light) 52%, transparent 52%, transparent 100%);
+  background-size: 300px 100%, 400px 100%, 400px 100%;
+  background-position: 0% 20%, 0% 40%, 0% 60%;
+  background-repeat: repeat-x;
+  opacity: 0.1;
+  animation: branchFlow 20s linear infinite;
+}
+
+@keyframes branchFlow {
+  0% {
+    background-position: 0% 20%, 0% 40%, 0% 60%;
+  }
+  100% {
+    background-position: 300px 20%, 400px 40%, 400px 60%;
+  }
 }
