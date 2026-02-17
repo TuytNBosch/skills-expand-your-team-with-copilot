@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Authentication state
   let currentUser = null;
 
+  // Configuration constants
+  const SCHOOL_NAME = "Mergington High School";
+
   // Time range mappings for the dropdown
   const timeRanges = {
     morning: { start: "06:00", end: "08:00" }, // Before school hours
@@ -475,19 +478,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to handle social sharing
   function shareActivity(name, details, platform) {
     const formattedSchedule = formatSchedule(details);
-    const shareText = `Check out ${name} at Mergington High School! ${details.description}. Schedule: ${formattedSchedule}`;
-    const shareUrl = window.location.href;
+    const shareText = `Check out ${name} at ${SCHOOL_NAME}! ${details.description}. Schedule: ${formattedSchedule}`;
+    // Use the base URL without query parameters or hash
+    const baseUrl = window.location.origin + window.location.pathname;
     
     let url;
     switch (platform) {
       case 'twitter':
-        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(baseUrl)}`;
         break;
       case 'facebook':
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseUrl)}&quote=${encodeURIComponent(shareText)}`;
         break;
       case 'linkedin':
-        url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+        url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(baseUrl)}`;
         break;
       case 'email':
         url = `mailto:?subject=${encodeURIComponent('Activity: ' + name)}&body=${encodeURIComponent(shareText)}`;
