@@ -1,0 +1,122 @@
+---
+name: Modify Existing Activity
+description: Request changes to an existing activity's details
+title: "[Modify Activity]: "
+labels: ["enhancement", "activity"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Modify an Existing Activity
+        Use this template to request changes to an existing activity in the system.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: Which activity needs to be modified?
+      placeholder: "e.g., Chess Club, Programming Class"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change-type
+    attributes:
+      label: Type of Change
+      description: What type of change are you requesting?
+      multiple: true
+      options:
+        - Update schedule (days or times)
+        - Change description
+        - Modify participant limit
+        - Update activity name
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current State
+      description: What are the current details that need to be changed?
+      placeholder: "Describe what the activity currently shows"
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired-state
+    attributes:
+      label: Desired Changes
+      description: What should the activity details be changed to?
+      placeholder: "Be specific about what needs to change (e.g., new schedule, new description, new participant limit)"
+    validations:
+      required: true
+
+  - type: input
+    id: new-days
+    attributes:
+      label: New Days (if changing schedule)
+      description: If changing days, list the new days separated by commas
+      placeholder: "e.g., Monday, Wednesday, Friday"
+    validations:
+      required: false
+
+  - type: input
+    id: new-start-time
+    attributes:
+      label: New Start Time (if changing schedule)
+      description: If changing start time, provide it in 24-hour format HH:MM
+      placeholder: "e.g., 15:30"
+    validations:
+      required: false
+
+  - type: input
+    id: new-end-time
+    attributes:
+      label: New End Time (if changing schedule)
+      description: If changing end time, provide it in 24-hour format HH:MM
+      placeholder: "e.g., 17:00"
+    validations:
+      required: false
+
+  - type: input
+    id: new-max-participants
+    attributes:
+      label: New Maximum Participants (if changing limit)
+      description: If changing participant limit, provide the new number
+      placeholder: "e.g., 25"
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Change
+      description: Why is this change needed?
+      placeholder: "Explain the reason behind this modification"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What should be working when this is complete?
+      value: |
+        - [ ] Activity details are updated in the database
+        - [ ] Updated information displays correctly on the website
+        - [ ] Existing participants are not affected negatively
+        - [ ] Schedule changes are reflected properly
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help make this change?
+      placeholder: "Related activities, timing conflicts, special considerations, etc."
+    validations:
+      required: false

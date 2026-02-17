@@ -1,0 +1,95 @@
+---
+name: Documentation Update
+description: Request updates or additions to documentation
+title: "[Docs]: "
+labels: ["documentation"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Documentation Update Request
+        Use this template to request updates, corrections, or additions to project documentation.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs to be updated?
+      options:
+        - README file
+        - Development guide
+        - API documentation
+        - User guide
+        - Code comments
+        - Setup instructions
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-docs
+    attributes:
+      label: Current Documentation Issue
+      description: What is wrong or missing in the current documentation?
+      placeholder: "Describe what needs to be updated, corrected, or added"
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-update
+    attributes:
+      label: Suggested Update
+      description: What should the documentation say instead?
+      placeholder: "Provide the corrected or new documentation content"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: update-reason
+    attributes:
+      label: Reason for Update
+      description: Why is this documentation change needed?
+      multiple: true
+      options:
+        - Information is incorrect
+        - Information is outdated
+        - Information is missing
+        - Information is unclear
+        - New feature needs documentation
+        - Better examples needed
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: file-location
+    attributes:
+      label: File Location (if known)
+      description: Which file or page needs to be updated?
+      placeholder: "e.g., docs/how-to-develop.md, README.md"
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this documentation update is complete?
+      value: |
+        - [ ] Documentation is updated with correct information
+        - [ ] Documentation is clear and easy to understand
+        - [ ] Documentation follows the same format as other docs
+        - [ ] Any code examples or commands have been tested
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information about this documentation update?
+      placeholder: "Related documentation, examples from other projects, links to relevant information, etc."
+    validations:
+      required: false

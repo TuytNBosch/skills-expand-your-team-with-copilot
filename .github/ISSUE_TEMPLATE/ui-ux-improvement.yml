@@ -1,0 +1,102 @@
+---
+name: UI/UX Improvement
+description: Suggest improvements to the user interface or user experience
+title: "[UI/UX]: "
+labels: ["enhancement", "ui-ux"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Suggest UI/UX Improvements
+        Use this template to suggest improvements to how the website looks or how users interact with it.
+
+  - type: dropdown
+    id: improvement-area
+    attributes:
+      label: Area to Improve
+      description: What part of the website needs improvement?
+      options:
+        - Activity cards/listing
+        - Navigation/layout
+        - Colors/styling
+        - Buttons and forms
+        - Search and filters
+        - Mobile experience
+        - Overall design
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-experience
+    attributes:
+      label: Current Experience
+      description: What is the current user experience?
+      placeholder: "Describe how it currently looks or works"
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-improvement
+    attributes:
+      label: Suggested Improvement
+      description: What would make it better?
+      placeholder: "Describe your suggested improvement in detail"
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: How would this improvement help users?
+      placeholder: "Explain why this change would be valuable (easier to use, looks better, faster, etc.)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user-impact
+    attributes:
+      label: Who Benefits?
+      description: Who would benefit from this improvement?
+      multiple: true
+      options:
+        - Students browsing activities
+        - Students signing up
+        - Teachers managing activities
+        - All users
+    validations:
+      required: true
+
+  - type: textarea
+    id: visual-reference
+    attributes:
+      label: Visual Reference
+      description: Do you have examples or inspiration?
+      placeholder: "Describe or link to examples of similar designs, attach sketches, or describe colors/layouts"
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this improvement is complete?
+      value: |
+        - [ ] The suggested UI/UX change is implemented
+        - [ ] The change improves the user experience
+        - [ ] The website remains easy to use
+        - [ ] The change works on different screen sizes (mobile, tablet, desktop)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other details about this improvement?
+      placeholder: "Related features, design considerations, accessibility needs, etc."
+    validations:
+      required: false
