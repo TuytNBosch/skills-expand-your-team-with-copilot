@@ -25,6 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
 
+  // Dark mode toggle elements
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeIcon = document.getElementById("theme-icon");
+
   // Activity categories with corresponding colors
   const activityTypes = {
     sports: { label: "Sports", color: "#e8f5e9", textColor: "#2e7d32" },
@@ -100,6 +104,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetchActivities();
   }
+
+  // Dark mode functionality
+  function initializeDarkMode() {
+    // Check if user has a saved preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      themeIcon.textContent = "☀️";
+    } else {
+      themeIcon.textContent = "🌙";
+    }
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    
+    // Update icon and save preference
+    if (document.body.classList.contains("dark-mode")) {
+      themeIcon.textContent = "☀️";
+      localStorage.setItem("theme", "dark");
+    } else {
+      themeIcon.textContent = "🌙";
+      localStorage.setItem("theme", "light");
+    }
+  }
+
+  // Event listener for theme toggle
+  themeToggle.addEventListener("click", toggleDarkMode);
 
   // Check if user is already logged in (from localStorage)
   function checkAuthentication() {
@@ -922,6 +954,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Initialize app
+  initializeDarkMode();
   checkAuthentication();
   initializeFilters();
   fetchActivities();
