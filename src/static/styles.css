@@ -73,6 +73,36 @@ header h2 {
   font-size: 1.2rem;
 }
 
+/* View Toggle */
+#view-toggle {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 3px;
+  border-radius: 20px;
+}
+
+.view-toggle-btn {
+  padding: 5px 15px;
+  background-color: transparent;
+  color: var(--primary-text);
+  border: none;
+  border-radius: 17px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.view-toggle-btn.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
+.view-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 main {
   display: flex;
   flex-wrap: wrap;
@@ -744,4 +774,149 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Calendar View Styles */
+#calendar-view {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.calendar-container {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  gap: 1px;
+  background-color: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  min-width: 800px;
+}
+
+.calendar-header {
+  background-color: var(--primary);
+  color: var(--primary-text);
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.calendar-time-label {
+  background-color: var(--surface);
+  padding: 5px;
+  text-align: right;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  border-right: 2px solid var(--border);
+}
+
+.calendar-cell {
+  background-color: var(--surface);
+  min-height: 60px;
+  padding: 2px;
+  position: relative;
+  overflow: visible;
+}
+
+.calendar-activity {
+  background-color: var(--primary-light);
+  color: white;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-bottom: 2px;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-activity:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.calendar-activity-name {
+  font-weight: bold;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-activity-enrollment {
+  font-size: 0.7rem;
+  opacity: 0.9;
+}
+
+/* Tooltip for calendar activities */
+.calendar-activity .calendar-tooltip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 100;
+  background-color: rgba(33, 33, 33, 0.95);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  width: 250px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.calendar-activity:hover .calendar-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.calendar-tooltip-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+}
+
+.calendar-tooltip-detail {
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+/* Side-by-side activities for overlapping times */
+.calendar-cell-activities {
+  display: flex;
+  gap: 2px;
+  height: 100%;
+}
+
+.calendar-activity.overlap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Activity type colors for calendar */
+.calendar-activity.sports {
+  background-color: #2e7d32;
+}
+
+.calendar-activity.arts {
+  background-color: #7b1fa2;
+}
+
+.calendar-activity.academic {
+  background-color: #1565c0;
+}
+
+.calendar-activity.community {
+  background-color: #e65100;
+}
+
+.calendar-activity.technology {
+  background-color: #3949ab;
 }
