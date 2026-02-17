@@ -745,3 +745,48 @@ footer {
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* Group By Toggle */
+.group-by-toggle {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.group-by-toggle input[type="checkbox"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.group-by-toggle span {
+  color: var(--text-secondary);
+}
+
+/* Category Group Header */
+.category-group-header {
+  padding: 12px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  grid-column: 1 / -1;
+}
+
+.category-group-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  border: none;
+  padding: 0;
+}
+
+/* Category Group Container */
+.category-group-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+  grid-column: 1 / -1;
+}
