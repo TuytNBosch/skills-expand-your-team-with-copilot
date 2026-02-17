@@ -1,0 +1,118 @@
+---
+name: New Feature Request
+description: Request a completely new feature for the system
+title: "[Feature]: "
+labels: ["enhancement", "feature-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Request a New Feature
+        Use this template to suggest a new feature or capability for the High School Management System.
+
+  - type: input
+    id: feature-name
+    attributes:
+      label: Feature Name
+      description: What is this feature called?
+      placeholder: "e.g., Activity Calendar View, Student Notifications, Activity Categories"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: What is this feature and what should it do?
+      placeholder: "Provide a clear description of the new feature and its functionality"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-solved
+    attributes:
+      label: Problem This Solves
+      description: What problem or need does this feature address?
+      placeholder: "Explain why this feature is needed and what problem it solves"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What kind of feature is this?
+      options:
+        - Student-facing feature
+        - Teacher-facing feature
+        - Both students and teachers
+        - Backend/system improvement
+        - Data/reporting feature
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-it-works
+    attributes:
+      label: How It Should Work
+      description: Describe how users would interact with this feature
+      placeholder: |
+        Walk through a typical use case:
+        1. User does...
+        2. System responds with...
+        3. User sees...
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-hints
+    attributes:
+      label: Technical Hints and Suggestions
+      description: Do you have suggestions for how to implement this?
+      placeholder: |
+        - Could use existing X feature as a starting point
+        - Might need to add new database field for Y
+        - Similar to Z feature in other systems
+        - Consider using ABC library or approach
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this feature is complete and working?
+      value: |
+        - [ ] Feature is fully implemented and functional
+        - [ ] Feature is easy to use for the intended users
+        - [ ] Feature integrates well with existing system
+        - [ ] Feature has been tested with typical use cases
+        - [ ] Documentation is updated if needed
+    validations:
+      required: true
+
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Limitations and Considerations
+      description: Are there any limitations, constraints, or things to be careful about?
+      placeholder: |
+        - Performance considerations
+        - Compatibility with existing features
+        - Data privacy concerns
+        - User permissions
+        - Resource requirements
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information about this feature request?
+      placeholder: "Examples from other systems, user feedback, related features, etc."
+    validations:
+      required: false

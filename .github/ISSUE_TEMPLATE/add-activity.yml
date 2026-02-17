@@ -1,0 +1,98 @@
+---
+name: Add New Activity
+description: Request to add a new extracurricular activity to the system
+title: "[New Activity]: "
+labels: ["enhancement", "activity"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add a New Activity
+        Use this template to request a new extracurricular activity to be added to Mergington High School's system.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: What is the name of the new activity?
+      placeholder: "e.g., Coding Club, Science Fair, Band Practice"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Activity Description
+      description: Provide a clear description of the activity
+      placeholder: "Describe what students will do in this activity, what they will learn, and any special features"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: days
+    attributes:
+      label: Days of the Week
+      description: What days will this activity meet?
+      multiple: true
+      options:
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+        - Sunday
+    validations:
+      required: true
+
+  - type: input
+    id: start-time
+    attributes:
+      label: Start Time
+      description: What time does the activity start? (Use 24-hour format HH:MM)
+      placeholder: "e.g., 15:30 for 3:30 PM, 07:00 for 7:00 AM"
+    validations:
+      required: true
+
+  - type: input
+    id: end-time
+    attributes:
+      label: End Time
+      description: What time does the activity end? (Use 24-hour format HH:MM)
+      placeholder: "e.g., 17:00 for 5:00 PM, 08:30 for 8:30 AM"
+    validations:
+      required: true
+
+  - type: input
+    id: max-participants
+    attributes:
+      label: Maximum Participants
+      description: What is the maximum number of students that can join?
+      placeholder: "e.g., 20"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What should be working when this is complete?
+      value: |
+        - [ ] New activity appears in the activities list
+        - [ ] Activity shows correct schedule information
+        - [ ] Students can sign up for the activity
+        - [ ] Maximum participant limit is enforced
+        - [ ] Activity information is displayed correctly on the website
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help implement this activity?
+      placeholder: "Special requirements, related activities, equipment needed, etc."
+    validations:
+      required: false

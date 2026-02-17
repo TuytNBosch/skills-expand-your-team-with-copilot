@@ -1,0 +1,103 @@
+---
+name: Bug Report
+description: Report a problem or error in the system
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Report a Bug
+        Use this template to report bugs or issues with the High School Management System.
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Problem Description
+      description: What is not working as expected?
+      placeholder: "Clearly describe the problem you encountered"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected-area
+    attributes:
+      label: Affected Area
+      description: What part of the system is affected?
+      options:
+        - Activity listing/display
+        - Student signup/registration
+        - Teacher login/authentication
+        - Activity schedule display
+        - Participant counting
+        - Search/filter functionality
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can someone else see this problem?
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: "Describe what you expected to happen"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: "Describe what actually happens (error messages, wrong data, etc.)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user-type
+    attributes:
+      label: User Type
+      description: Does this affect students, teachers, or both?
+      options:
+        - Students
+        - Teachers
+        - Both
+        - Not applicable
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this bug is fixed?
+      value: |
+        - [ ] The reported error no longer occurs
+        - [ ] The expected behavior works correctly
+        - [ ] No new issues are introduced
+        - [ ] Similar cases are also fixed (if applicable)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information about the bug?
+      placeholder: "Screenshots, error messages, browser information, when did this start happening, etc."
+    validations:
+      required: false
