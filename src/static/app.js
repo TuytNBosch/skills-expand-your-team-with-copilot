@@ -466,6 +466,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>Try adjusting your search or filter criteria</p>
         </div>
       `;
+      
+      // Also update calendar view if in calendar mode
+      if (currentView === "calendar") {
+        renderCalendarView();
+      }
       return;
     }
 
@@ -473,6 +478,11 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(filteredActivities).forEach(([name, details]) => {
       renderActivityCard(name, details);
     });
+    
+    // Also update calendar view if in calendar mode
+    if (currentView === "calendar") {
+      renderCalendarView();
+    }
   }
 
   // Function to handle social sharing
@@ -869,6 +879,243 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       messageDiv.classList.add("hidden");
     }, 5000);
+  }
+
+  // Calendar view functionality
+  const calendarView = document.getElementById("calendar-view");
+  const cardViewButton = document.getElementById("card-view-button");
+  const calendarViewButton = document.getElementById("calendar-view-button");
+  let currentView = "card"; // "card" or "calendar"
+
+  // View toggle handlers
+  cardViewButton.addEventListener("click", () => {
+    currentView = "card";
+    activitiesList.classList.remove("hidden");
+    calendarView.classList.add("hidden");
+    cardViewButton.classList.add("active");
+    calendarViewButton.classList.remove("active");
+  });
+
+  calendarViewButton.addEventListener("click", () => {
+    currentView = "calendar";
+    activitiesList.classList.add("hidden");
+    calendarView.classList.remove("hidden");
+    cardViewButton.classList.remove("active");
+    calendarViewButton.classList.add("active");
+    renderCalendarView();
+  });
+
+  // Calendar rendering function
+  function renderCalendarView() {
+    // Define time slots (6 AM to 9 PM in 30-minute increments)
+    const timeSlots = [];
+    for (let hour = 6; hour <= 21; hour++) {
+      timeSlots.push(`${hour.toString().padStart(2, "0")}:00`);
+      if (hour < 21) {
+        timeSlots.push(`${hour.toString().padStart(2, "0")}:30`);
+      }
+    }
+
+    // Days of the week (Sunday to Saturday)
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    // Create calendar grid
+    let calendarHTML = '<div class="calendar-container">';
+
+    // Header row
+    calendarHTML += '<div class="calendar-header">Time</div>';
+    daysOfWeek.forEach((day) => {
+      calendarHTML += `<div class="calendar-header">${day}</div>`;
+    });
+
+    // For each time slot
+    timeSlots.forEach((timeSlot) => {
+      // Time column
+      const displayTime = formatTimeSlot(timeSlot);
+      calendarHTML += `<div class="calendar-time-slot">${displayTime}</div>`;
+
+      // For each day of the week
+      daysOfWeek.forEach((day) => {
+        // Find activities for this day and time slot
+        const activitiesInSlot = getActivitiesForDayAndTime(day, timeSlot);
+
+        calendarHTML += '<div class="calendar-day-cell">';
+        if (activitiesInSlot.length > 0) {
+          calendarHTML += '<div class="calendar-activities-container">';
+          activitiesInSlot.forEach((activity) => {
+            const activityType = getActivityType(
+              activity.name,
+              activity.details.description
+            );
+            const enrollment = `${activity.details.participants.length}/${activity.details.max_participants}`;
+
+            calendarHTML += `
+              <div class="calendar-activity ${activityType}" 
+                   data-activity-name="${escapeHtml(activity.name)}"
+                   data-activity-details='${escapeHtml(
+                     JSON.stringify(activity.details)
+                   )}'>
+                <div class="calendar-activity-name">${escapeHtml(
+                  activity.name
+                )}</div>
+                <div class="calendar-activity-enrollment">${enrollment}</div>
+              </div>
+            `;
+          });
+          calendarHTML += "</div>";
+        }
+        calendarHTML += "</div>";
+      });
+    });
+
+    calendarHTML += "</div>";
+    calendarView.innerHTML = calendarHTML;
+
+    // Add event listeners for tooltips
+    addCalendarTooltips();
+  }
+
+  // Helper function to format time slot for display
+  function formatTimeSlot(time24) {
+    const [hours, minutes] = time24.split(":").map((num) => parseInt(num));
+    const period = hours >= 12 ? "PM" : "AM";
+    const displayHours = hours % 12 || 12;
+    return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;
+  }
+
+  // Helper function to get activities for a specific day and time
+  function getActivitiesForDayAndTime(day, timeSlot) {
+    const activities = [];
+
+    Object.entries(allActivities).forEach(([name, details]) => {
+      // Check if activity has schedule details
+      if (!details.schedule_details) return;
+
+      // Check if activity is on this day
+      if (!details.schedule_details.days.includes(day)) return;
+
+      // Check if activity overlaps with this time slot
+      const activityStart = details.schedule_details.start_time;
+      const activityEnd = details.schedule_details.end_time;
+
+      // Convert time slot to comparable format
+      const slotTime = timeSlot;
+      const nextSlotTime = getNextTimeSlot(timeSlot);
+
+      // Check if activity overlaps with this 30-minute slot
+      if (activityStart < nextSlotTime && activityEnd > slotTime) {
+        // Only add at the start time slot to avoid duplicates
+        if (activityStart <= slotTime && activityStart > getPreviousTimeSlot(slotTime)) {
+          activities.push({ name, details });
+        }
+      }
+    });
+
+    return activities;
+  }
+
+  // Helper to get next time slot
+  function getNextTimeSlot(timeSlot) {
+    const [hours, minutes] = timeSlot.split(":").map((num) => parseInt(num));
+    let nextMinutes = minutes + 30;
+    let nextHours = hours;
+    
+    if (nextMinutes >= 60) {
+      nextMinutes = 0;
+      nextHours += 1;
+    }
+    
+    return `${nextHours.toString().padStart(2, "0")}:${nextMinutes.toString().padStart(2, "0")}`;
+  }
+
+  // Helper to get previous time slot
+  function getPreviousTimeSlot(timeSlot) {
+    const [hours, minutes] = timeSlot.split(":").map((num) => parseInt(num));
+    let prevMinutes = minutes - 30;
+    let prevHours = hours;
+    
+    if (prevMinutes < 0) {
+      prevMinutes = 30;
+      prevHours -= 1;
+    }
+    
+    return `${prevHours.toString().padStart(2, "0")}:${prevMinutes.toString().padStart(2, "0")}`;
+  }
+
+  // Helper to escape HTML
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Add tooltip functionality to calendar activities
+  function addCalendarTooltips() {
+    const calendarActivities = document.querySelectorAll(".calendar-activity");
+    let tooltip = null;
+
+    calendarActivities.forEach((activityEl) => {
+      activityEl.addEventListener("mouseenter", (e) => {
+        const name = activityEl.dataset.activityName;
+        const details = JSON.parse(activityEl.dataset.activityDetails);
+
+        // Remove existing tooltip if any
+        if (tooltip) {
+          tooltip.remove();
+        }
+
+        // Create tooltip
+        tooltip = document.createElement("div");
+        tooltip.className = "calendar-activity-tooltip";
+        
+        const formattedSchedule = formatSchedule(details);
+        const enrollment = `${details.participants.length}/${details.max_participants}`;
+        
+        tooltip.innerHTML = `
+          <h4>${escapeHtml(name)}</h4>
+          <p><strong>Description:</strong> ${escapeHtml(details.description)}</p>
+          <p><strong>Schedule:</strong> ${formattedSchedule}</p>
+          <p><strong>Enrollment:</strong> ${enrollment}</p>
+        `;
+
+        document.body.appendChild(tooltip);
+
+        // Position tooltip
+        const rect = activityEl.getBoundingClientRect();
+        const tooltipRect = tooltip.getBoundingClientRect();
+        
+        let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+        let top = rect.top - tooltipRect.height - 10;
+
+        // Adjust if tooltip goes off screen
+        if (left < 10) left = 10;
+        if (left + tooltipRect.width > window.innerWidth - 10) {
+          left = window.innerWidth - tooltipRect.width - 10;
+        }
+        if (top < 10) {
+          top = rect.bottom + 10;
+        }
+
+        tooltip.style.position = "fixed";
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+      });
+
+      activityEl.addEventListener("mouseleave", () => {
+        if (tooltip) {
+          tooltip.remove();
+          tooltip = null;
+        }
+      });
+    });
   }
 
   // Handle form submission
